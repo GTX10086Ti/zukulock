@@ -1,27 +1,36 @@
 package com.tiendnm.zukulock
 
-import android.util.Log
 import java.lang.reflect.Method
 import rikka.shizuku.ShizukuRemoteProcess
 
 object ShizukuHelper {
 
-    fun useNewProcess(cmd: Array<String>, env: Array<String>?, dir: String?){
-        val shizukuClass = Class.forName("rikka.shizuku.Shizuku")
-        val newProcessMethod: Method = shizukuClass.getDeclaredMethod("newProcess", Array<String>::class.java, Array<String>::class.java, String::class.java)
-        newProcessMethod.isAccessible = true
+    private val newProcessMethod: Method by lazy {
+        Class.forName("rikka.shizuku.Shizuku")
+            .getDeclaredMethod(
+                "newProcess",
+                Array<String>::class.java,
+                Array<String>::class.java,
+                String::class.java
+            )
+            .apply { isAccessible = true }
+    }
+
+    /**
+     * Hands the command to Shizuku (a single binder call) and returns as soon as
+     * the remote process is available.
+     *
+     * This must happen synchronously on the calling thread: SystemUI unbinds
+     * immediately after a tile click and the app process can be reclaimed at any
+     * moment, so the IPC must not be deferred to a background thread.
+     */
+    fun start(
+        cmd: Array<String>,
+        env: Array<String>? = null,
+        dir: String? = null
+    ): ShizukuRemoteProcess {
         val result = newProcessMethod.invoke(null, cmd, env, dir)
-        if (result is ShizukuRemoteProcess) {
-            // Handle the process here, you might want to manage streams or wait for completion
-            // Example:
-            // process.inputStream.bufferedReader().use { reader ->
-            //     reader.forEachLine { line -> Log.d("ShizukuShell", line) }
-            // }
-            result.waitFor()
-            result.destroy()
-        } else {
-            Log.e("ShizukuHelper", "Result is not an instance of ShizukuRemoteProcess")
-            throw Exception()
-        }
+        return result as? ShizukuRemoteProcess
+            ?: throw IllegalStateException("unexpected result from Shizuku.newProcess: $result")
     }
 }

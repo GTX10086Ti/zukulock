@@ -7,4 +7,5 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+    <style name="GrantTheme" parent="android:Theme.DeviceDefault" />
 </resources>

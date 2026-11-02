@@ -1,3 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Screen Lock</string>
+
+    <string name="tile_screen_off">Screen off</string>
+    <string name="tile_power_off">Power off</string>
+
+    <string name="grant_title">Shizuku authorization</string>
+    <string name="grant_help">If tapping a tile does nothing, Shizuku has usually been killed by the system: tap "Open Shizuku" and start the service from there.\n\nIf this app itself has not been authorized, tap "Request authorization"; if that fails, enable this app manually under "Authorized applications" in Shizuku.\n\n"Allow background running" adds this app to the battery optimization whitelist, which reduces the chance of the tiles going dead after the system cleans up background processes.</string>
+
+    <string name="status_not_running">Shizuku: not running</string>
+    <string name="status_granted">Shizuku: connected and authorized</string>
+    <string name="status_not_granted">Shizuku: running, but not yet authorized for this app</string>
+
+    <string name="action_grant">Request authorization</string>
+    <string name="action_open_shizuku">Open Shizuku</string>
+    <string name="action_close">Close</string>
+    <string name="action_confirm">Power off</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="confirm_power_off">The device will not come back on by itself. If the power button is already broken, you may need to plug in the charger, hold a volume key combination, or even short contacts on the board to boot again. Power off anyway?</string>
+
+    <string name="msg_granted">Authorized, the tiles are ready to use</string>
+    <string name="msg_denied">Not authorized, the tiles cannot run commands</string>
+    <string name="msg_shizuku_not_running">Shizuku is not running, open it and start the service first</string>
+    <string name="msg_shizuku_missing">Shizuku is not installed on this device</string>
+
+    <string name="tile_subtitle_not_running">Shizuku not running</string>
+    <string name="tile_subtitle_no_permission">Not authorized</string>
+
+    <string name="action_battery">Allow background running</string>
+    <string name="msg_battery_done">Already on the battery optimization ignore list</string>
+    <string name="msg_battery_failed">Could not open settings, allow background running manually under Battery -&gt; App power management</string>
 </resources>
